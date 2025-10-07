@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /api/banks/:id → get single blood bank details
+// GET /api/banks/:id → get single blood bank
 router.get("/:id", async (req, res) => {
   try {
     const bank = await BloodBank.findById(req.params.id);
@@ -39,8 +39,8 @@ router.post("/", async (req, res) => {
       email,
       city,
       bloodStock: bloodStock || {
-        A_pos:0, A_neg:0, B_pos:0, B_neg:0,
-        AB_pos:0, AB_neg:0, O_pos:0, O_neg:0
+        A_pos: 0, A_neg: 0, B_pos: 0, B_neg: 0,
+        AB_pos: 0, AB_neg: 0, O_pos: 0, O_neg: 0
       },
       campaigns: []
     });

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const bloodBankSchema = mongoose.Schema({
+const bloodBankSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String },
   city: { type: String, required: true },
@@ -14,14 +14,7 @@ const bloodBankSchema = mongoose.Schema({
     O_pos: { type: Number, default: 0 },
     O_neg: { type: Number, default: 0 }
   },
-  campaigns: [
-    {
-      title: { type: String },
-      description: { type: String },
-      date: { type: Date }
-    }
-  ]
-}, { timestamps: true });
+  campaigns: [{ title: String, description: String, date: Date }]
+});
 
-const BloodBank = mongoose.model("BloodBank", bloodBankSchema);
-export default BloodBank;
+export default mongoose.model("BloodBank", bloodBankSchema);

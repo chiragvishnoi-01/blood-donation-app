@@ -1,18 +1,12 @@
 import mongoose from "mongoose";
 
-const donorSchema = mongoose.Schema({
+const donorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   bloodGroup: { type: String, required: true },
   city: { type: String, required: true },
-  donationHistory: [
-    {
-      date: { type: Date },
-      quantity: { type: Number } // in units
-    }
-  ],
-  badges: [{ type: String }] // e.g., "Gold Donor", "Top Donor"
-}, { timestamps: true });
+  donationHistory: [{ date: Date }],
+  badges: [{ type: String }]
+});
 
-const Donor = mongoose.model("Donor", donorSchema);
-export default Donor;
+export default mongoose.model("Donor", donorSchema);

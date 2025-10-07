@@ -1,7 +1,7 @@
 import express from "express";
 import Request from "../models/Request.js";
 import Donor from "../models/Donor.js";
-import sendEmail from "../utils/sendEmail.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 const router = express.Router();
 
@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
       sendEmail({
         to: donor.email,
         subject: `Urgent Blood Request: ${bloodGroup}`,
-        text: `Hello ${donor.name},\n\n${requesterName} needs ${bloodGroup} blood in ${city}. Please contact if you can donate.\n\nPhone: ${phone || "N/A"}`,
+        text: `Hello ${donor.name},\n\n${requesterName} needs ${bloodGroup} blood in ${city}. Please contact if you can donate.\n\nPhone: ${phone || "N/A"}`
       });
     });
 

@@ -1,30 +1,24 @@
 import nodemailer from "nodemailer";
 
-const sendEmail = async ({ to, subject, text, html }) => {
+export const sendEmail = async ({ to, subject, text }) => {
   try {
-    // create transporter
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
+      service: "gmail",
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
-    // send mail
-    const info = await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
       to,
       subject,
-      text,
-      html
+      text
     });
 
-    console.log("✅ Email sent: ", info.messageId);
+    console.log("Email sent to", to);
   } catch (error) {
-    console.error("❌ Error sending email: ", error);
+    console.error("Error sending email:", error);
   }
 };
-
-export default sendEmail;
