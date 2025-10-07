@@ -4,18 +4,21 @@ import CampaignCard from "../components/CampaignCard";
 
 const Campaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const res = await axios.get("/banks"); // Assuming campaigns are nested under banks
-        const allCampaigns = res.data.flatMap(bank => bank.campaigns.map(c => ({
-          ...c,
-          bankName: bank.name
-        })));
-        setCampaigns(allCampaigns);
-      } catch (error) {
-        console.error(error);
+        // We fetch banks then flatten campaigns (backend stores campaigns under banks)
+        const res = await axios.get("/banks");
+        const all = res.data.flatMap(bank =>
+          (bank.campaigns || []).map(c => ({ ...c, bankName: bank.name }))
+        );
+        setCampaigns(all);
+      } catch (err) {
+        console.error("Error loading campaigns:", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchCampaigns();
@@ -23,14 +26,22 @@ const Campaigns = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold text-red-600 mb-6 text-center">
-        Active Blood Donation Campaigns
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {campaigns.map((campaign, idx) => (
-          <CampaignCard key={idx} campaign={campaign} />
-        ))}
-      </div>
+      <h1 className="text-3xl font-bold text-red-600 mb-6 text-center">Active Campaigns</h1>
+
+      {loading ? (
+        <p className="text-center text-gray-500">Loading campaigns...</p>
+      ) : campaigns.length === 0 ? (
+        <p className="text-center text-gray-500">No campaigns found.</p>
+      ) : (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {campaigns.map((c, i) => (
+            <div key={i}>
+              <CampaignCard campaign={{ ...c, title: c.title || "Campaign", description: c.description || "", date: c.date || Date.now(), bankName: c.bankName }} />
+              {c.bankName && <p className="text-sm text-gray-400 mt-1">Hosted by: {c.bankName}</p>}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
