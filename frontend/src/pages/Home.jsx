@@ -1,17 +1,33 @@
 import React from "react";
-import Hero from "../components/Hero.jsx";
+import Hero from "../components/Hero";
+import DonorCard from "../components/DonorCard";
+import CampaignCard from "../components/CampaignCard";
+import donorsData from "../data/donors.json";
 
 const Home = () => {
   return (
-    <div>
+    <div className="container mx-auto px-4 mt-6">
       <Hero />
-      {/* Why Blood Donation Section */}
-      <section className="py-16 bg-gray-50 text-center">
-        <h2 className="text-3xl font-bold mb-6">Why Blood Donation?</h2>
-        <p className="max-w-2xl mx-auto mb-6">
-          Blood donation is a selfless act that can save lives. Your single donation can help multiple patients in need.
-        </p>
-        <img src="/gif/blood-donation.gif" alt="Blood Donation" className="mx-auto w-64 md:w-96"/>
+      
+      <section className="mt-10">
+        <h2 className="text-2xl font-bold text-red-600 mb-4">Recent Donors</h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          {donorsData.slice(0, 6).map(donor => (
+            <DonorCard key={donor.id} donor={donor} />
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-bold text-red-600 mb-4">Active Campaigns</h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          <CampaignCard
+            campaign={{ title: "City Blood Drive", description: "Donate blood to save lives", date: new Date() }}
+          />
+          <CampaignCard
+            campaign={{ title: "University Blood Camp", description: "Students donating blood", date: new Date() }}
+          />
+        </div>
       </section>
     </div>
   );

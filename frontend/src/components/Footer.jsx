@@ -1,21 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
-const Navbar = () => {
+const Footer = () => {
   return (
-    <nav className="bg-primaryRed text-white shadow-md">
-      <div className="container mx-auto flex justify-between items-center p-4">
-        <Link to="/" className="text-2xl font-bold">Blood Donation</Link>
-        <ul className="flex space-x-6">
-          <li><Link to="/" className="hover:text-gray-200">Home</Link></li>
-          <li><Link to="/sos" className="hover:text-gray-200">SOS</Link></li>
-          <li><Link to="/dashboard" className="hover:text-gray-200">Dashboard</Link></li>
-          <li><Link to="/leaderboard" className="hover:text-gray-200">Leaderboard</Link></li>
-          <li><Link to="/campaigns" className="hover:text-gray-200">Campaigns</Link></li>
-        </ul>
+    <footer className="bg-red-600 text-white p-6 mt-10">
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <p>© 2025 Blood Donation Platform. All rights reserved.</p>
+        <div className="flex space-x-4 mt-3 md:mt-0">
+          <FaFacebook className="cursor-pointer hover:text-gray-200" />
+          <FaTwitter className="cursor-pointer hover:text-gray-200" />
+          <FaInstagram className="cursor-pointer hover:text-gray-200" />
+        </div>
       </div>
-    </nav>
+    </footer>
   );
 };
 
-export default Navbar;
+export default Footer;

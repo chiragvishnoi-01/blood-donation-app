@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/axiosConfig";
-import Leaderboard from "../components/Leaderboard.jsx";
+import DonorCard from "../components/DonorCard";
 
 const LeaderboardPage = () => {
-  const [donors, setDonors] = useState([]);
+  const [topDonors, setTopDonors] = useState([]);
 
   useEffect(() => {
-    const fetchLeaderboard = async () => {
+    const fetchTopDonors = async () => {
       try {
         const res = await axios.get("/leaderboard");
-        setDonors(res.data);
+        setTopDonors(res.data);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchLeaderboard();
+    fetchTopDonors();
   }, []);
 
   return (
     <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6 text-center">Top Donors</h1>
-      <Leaderboard donors={donors} />
+      <h1 className="text-3xl font-bold text-red-600 mb-6 text-center">
+        Top Donors Leaderboard
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {topDonors.map(donor => (
+          <DonorCard key={donor._id} donor={donor} showRank={true} />
+        ))}
+      </div>
     </div>
   );
 };

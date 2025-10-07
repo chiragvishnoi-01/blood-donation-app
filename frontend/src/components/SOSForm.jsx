@@ -2,40 +2,88 @@ import React, { useState } from "react";
 import axios from "../api/axiosConfig";
 
 const SOSForm = () => {
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     requesterName: "",
     email: "",
     bloodGroup: "",
     city: "",
     phone: ""
   });
-  const [message, setMessage] = useState("");
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const [status, setStatus] = useState("");
 
-  const handleSubmit = async e => {
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value});
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/sos", form);
-      setMessage(res.data.message);
-      setForm({ requesterName:"", email:"", bloodGroup:"", city:"", phone:"" });
+      const response = await axios.post("/sos", formData);
+      setStatus(response.data.message);
+      setFormData({ requesterName: "", email: "", bloodGroup: "", city: "", phone: "" });
     } catch (err) {
-      setMessage(err.response?.data?.message || "Error submitting request");
+      console.error(err);
+      setStatus("Error sending SOS request.");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-md p-6 rounded-lg mt-8">
-      <h2 className="text-2xl font-bold mb-4 text-center">Emergency SOS Request</h2>
-      {message && <p className="mb-4 text-center text-red-600">{message}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-        <input name="requesterName" placeholder="Your Name" value={form.requesterName} onChange={handleChange} required className="border p-2 rounded" />
-        <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} required className="border p-2 rounded" />
-        <input name="bloodGroup" placeholder="Blood Group" value={form.bloodGroup} onChange={handleChange} required className="border p-2 rounded" />
-        <input name="city" placeholder="City" value={form.city} onChange={handleChange} required className="border p-2 rounded" />
-        <input name="phone" placeholder="Phone (optional)" value={form.phone} onChange={handleChange} className="border p-2 rounded" />
-        <button type="submit" className="bg-primaryRed text-white py-2 rounded font-semibold hover:bg-red-700 transition">Send SOS</button>
+    <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg mt-6">
+      <h2 className="text-2xl font-bold text-red-600 mb-4">Emergency SOS Request</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          name="requesterName"
+          placeholder="Your Name"
+          value={formData.requesterName}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="bloodGroup"
+          placeholder="Blood Group (e.g. A+)"
+          value={formData.bloodGroup}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="city"
+          placeholder="City"
+          value={formData.city}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+          required
+        />
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone (optional)"
+          value={formData.phone}
+          onChange={handleChange}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+        <button
+          type="submit"
+          className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition duration-300"
+        >
+          Send SOS
+        </button>
       </form>
+      {status && <p className="mt-4 text-center text-red-600 font-semibold">{status}</p>}
     </div>
   );
 };
