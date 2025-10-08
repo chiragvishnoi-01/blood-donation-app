@@ -1,14 +1,16 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import history from "connect-history-api-fallback";
 
 export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
-    strictPort: true, // ensures Vite fails if port is busy
-    fs: {
-      strict: false // relax file system restrictions (OneDrive friendly)
-    }
-  }
+    strictPort: true,
+    fs: { strict: false },
+    setupMiddlewares: (middlewares, { app }) => {
+      app.use(history()); // SPA fallback
+      return middlewares;
+    },
+  },
 });
-

@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000/api", // backend base URL
-  headers: {
-    "Content-Type": "application/json"
-  }
+  baseURL: "https://blood-donation-backend.up.railway.app/api", // <-- yahan apna backend URL update karo
 });
 
 export default instance;
