@@ -7,10 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryRed: "#E63946",
-        darkAccent: "#1D3557",
+        primaryRed: "#E63946", // ❤️ main theme color for buttons, headings
+        darkAccent: "#1D3557", // 💙 for contrast text or dark sections
       }
     },
   },
-  plugins: [],
+  plugins: [
+  require('@tailwindcss/forms'),
+  require('@tailwindcss/typography'),
+  require('@tailwindcss/aspect-ratio'),
+],
 }

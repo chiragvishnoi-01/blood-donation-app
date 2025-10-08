@@ -13,15 +13,16 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/sos" element={<SOS />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/leaderboard" element={<LeaderboardPage />} />
-            <Route path="/campaigns" element={<Campaigns />} />
-          </Routes>
-        </main>
+     <main className="flex-grow animate-fadeIn">
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/sos" element={<SOS />} />
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/leaderboard" element={<LeaderboardPage />} />
+    <Route path="/campaigns" element={<Campaigns />} />
+  </Routes>
+</main>
+
         <Footer />
       </div>
     </Router>
