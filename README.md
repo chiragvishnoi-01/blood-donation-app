@@ -57,24 +57,14 @@ blood-donation-app/
 └── README.md
 
 
----
-
-## Installation
-
-### Backend
-
-```bash
-cd backend
-npm install
-cp .env.example .env
-# Set your MongoDB URI and email credentials
-npm run dev
-
+--
 ## Frontend 
 cd frontend
 npm install
 npm run dev
 Frontend will run on http://localhost:5173 (Vite default). Backend on http://localhost:5000.
+
+
 ## API Routes (Backend)
 GET /api/banks → List all blood banks
 
@@ -86,19 +76,22 @@ POST /api/banks/:id/campaigns → Add campaign
 
 GET /api/leaderboard → Top donors
 
-POST /api/sos → Send SOS requestTechnologies   
-## Technologies
+POST /api/sos → Send SOS requestTechnologies  
 
+
+## Technologies
 Frontend: React, Tailwind CSS, Vite, Axios
 
 Backend: Node.js, Express, MongoDB, Mongoose
 
 Tools: Git, VSCode
 
+
 ## Deployment
 Use npm run build (frontend) for production
 
 Backend can be deployed on Heroku, Render, Railway, or Vercel (for frontend)
+
 
 ## 📄 License
 
@@ -108,6 +101,9 @@ This project is open-source and free to use under the MIT License.
 [chiragvishnoi-01] – Passionate about building apps that save lives.
 
 
-If you want, I can also make a **version with badges, emojis, GitHub stats, and GIF previews** that looks fully **professional for GitHub showcase**.  
-
-Do you want me to do that next?
+```bash
+cd backend
+npm install
+cp .env.example .env
+# Set your MongoDB URI and email credentials
+npm run dev 
